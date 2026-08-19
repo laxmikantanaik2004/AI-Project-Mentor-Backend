@@ -3,11 +3,13 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import URL
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 
 load_dotenv()
 
+class Base(DeclarativeBase):
+    pass
 
 db_server = os.getenv("DB_SERVER")
 db_name = os.getenv("DB_NAME")
