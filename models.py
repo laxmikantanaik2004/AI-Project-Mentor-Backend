@@ -7,10 +7,9 @@ from sqlalchemy import (
     NVARCHAR,
     text,
 )
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import relationship
 
-
-Base = declarative_base()
+from database import Base
 
 
 class Project(Base):
