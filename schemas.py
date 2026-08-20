@@ -4,10 +4,6 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 
-# ---------------------------------------------------------
-# Common values
-# ---------------------------------------------------------
-
 PriorityValue = Literal[
     "Low",
     "Medium",
@@ -31,9 +27,14 @@ class ProjectBase(BaseModel):
         max_length=150,
     )
 
-    description: str | None = None
+    description: str = Field(
+        min_length=5,
+    )
 
-    technology_stack: str | None = None
+    technology_stack: str = Field(
+        min_length=2,
+        max_length=300,
+    )
 
 
 class ProjectCreate(ProjectBase):
@@ -48,6 +49,7 @@ class ProjectResponse(ProjectBase):
     model_config = ConfigDict(from_attributes=True)
 
     project_id: int
+    created_at: datetime
 
 
 # ---------------------------------------------------------
@@ -67,9 +69,7 @@ class TaskBase(BaseModel):
     )
 
     priority: PriorityValue = "Medium"
-
     status: StatusValue = "Pending"
-
     ai_generated: bool = False
 
 
