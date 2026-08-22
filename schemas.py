@@ -15,11 +15,19 @@ StatusValue = Literal[
     "In Progress",
     "Completed",
 ]
-
+AITaskType = Literal[
+    "Generate Project Plan",
+    "Break Requirement into Tasks",
+    "Recommend Next Task",
+    "Identify Project Blockers",
+    "Explain Implementation",
+    "Generate Testing Checklist",
+]
 
 # ---------------------------------------------------------
 # Project schemas
 # ---------------------------------------------------------
+
 
 class ProjectBase(BaseModel):
     project_name: str = Field(
@@ -100,13 +108,11 @@ class TaskResponse(TaskBase):
 class AIPlanRequest(BaseModel):
     project_id: int = Field(gt=0)
 
-    task_type: str = Field(
-        min_length=2,
-        max_length=100,
-    )
+    task_type: AITaskType
 
     prompt: str = Field(
         min_length=5,
+        max_length=5000,
     )
 
 
