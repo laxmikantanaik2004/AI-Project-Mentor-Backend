@@ -15,6 +15,7 @@ StatusValue = Literal[
     "In Progress",
     "Completed",
 ]
+
 AITaskType = Literal[
     "Generate Project Plan",
     "Break Requirement into Tasks",
@@ -24,10 +25,10 @@ AITaskType = Literal[
     "Generate Testing Checklist",
 ]
 
+
 # ---------------------------------------------------------
 # Project schemas
 # ---------------------------------------------------------
-
 
 class ProjectBase(BaseModel):
     project_name: str = Field(
@@ -114,6 +115,23 @@ class AIPlanRequest(BaseModel):
         min_length=5,
         max_length=5000,
     )
+
+
+class AIInteractionCreate(BaseModel):
+    project_id: int = Field(gt=0)
+
+    task_type: AITaskType
+
+    prompt: str = Field(
+        min_length=5,
+        max_length=5000,
+    )
+
+    ai_response: str = Field(
+        min_length=1,
+    )
+
+    model_name: str | None = None
 
 
 class AIInteractionResponse(BaseModel):
